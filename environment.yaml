@@ -2,6 +2,7 @@ name: mesh_funcspace
 channels:
   - conda-forge
   - pytorch
+  - intel
   - defaults
 dependencies:
   - cython=0.29.2
@@ -23,7 +24,7 @@ dependencies:
   - torchvision=0.2.1
   - tqdm=4.28.1
   - trimesh=2.37.7
-  - mkl
+  - intel::mkl
   - pip
   - pip:
     - h5py==2.9.0
