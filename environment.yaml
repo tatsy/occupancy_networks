@@ -15,13 +15,14 @@ dependencies:
   - pillow
   - pyembree
   - pytest
-  - python
-  - pytorch
+  - python=3.6.7
+  - pytorch::pytorch=1.0.0
+  - pytorch::torchvision=0.2.1
+  - tensorflow
+  - tensorboard
   - pyyaml
   - scikit-image
   - scipy
-  - tensorboardx
-  - torchvision
   - tqdm
   - trimesh
   - intel::mkl
