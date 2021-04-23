@@ -15,9 +15,9 @@ dependencies:
   - pillow
   - pyembree
   - pytest
-  - python=3.6.7
-  - pytorch::pytorch=1.0.0
-  - pytorch::torchvision=0.2.1
+  - python=3.7
+  - pytorch::pytorch=1.4.0
+  - pytorch::torchvision
   - tensorflow
   - tensorboard
   - pyyaml
