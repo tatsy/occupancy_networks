@@ -18,8 +18,7 @@ dependencies:
   - pytorch::pytorch=1.1.0
   - pytorch::torchvision
   - cudatoolkit=9.0
-  - tensorflow
-  - tensorboard
+  - tensorboardx
   - pyyaml
   - scikit-image
   - scipy
