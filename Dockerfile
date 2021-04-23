@@ -1,4 +1,4 @@
-FROM nvidia/cuda:10.2-cudnn7-devel
+FROM nvidia/cuda:9.0-cudnn7-devel
 
 # Envrinment settings
 ENV SETUSER root
