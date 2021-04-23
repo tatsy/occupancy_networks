@@ -16,8 +16,9 @@ dependencies:
   - pyembree
   - pytest
   - python=3.7
-  - pytorch::pytorch=1.4.0
+  - pytorch::pytorch=1.6.0
   - pytorch::torchvision
+  - cudatoolkit=
   - tensorflow
   - tensorboard
   - pyyaml
