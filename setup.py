@@ -22,6 +22,7 @@ pykdtree = Extension(
     language='c',
     extra_compile_args=['-std=c99', '-O3', '-fopenmp'],
     extra_link_args=['-lgomp'],
+    include_dirs=[numpy_include_dir]
 )
 
 # mcubes (marching cubes algorithm)
@@ -43,7 +44,8 @@ triangle_hash_module = Extension(
     sources=[
         'im2mesh/utils/libmesh/triangle_hash.pyx'
     ],
-    libraries=['m']  # Unix-like specific
+    include_dirs=[numpy_include_dir],
+    libraries=['m'],  # Unix-like specific
 )
 
 # mise (efficient mesh extraction)
@@ -52,6 +54,7 @@ mise_module = Extension(
     sources=[
         'im2mesh/utils/libmise/mise.pyx'
     ],
+    include_dirs=[numpy_include_dir]
 )
 
 # simplify (efficient mesh simplification)
@@ -59,7 +62,8 @@ simplify_mesh_module = Extension(
     'im2mesh.utils.libsimplify.simplify_mesh',
     sources=[
         'im2mesh/utils/libsimplify/simplify_mesh.pyx'
-    ]
+    ],
+    include_dirs=[numpy_include_dir]
 )
 
 # voxelization (efficient mesh voxelization)
@@ -68,6 +72,7 @@ voxelize_module = Extension(
     sources=[
         'im2mesh/utils/libvoxelize/voxelize.pyx'
     ],
+    include_dirs=[numpy_include_dir],
     libraries=['m']  # Unix-like specific
 )
 
@@ -76,7 +81,8 @@ dmc_pred2mesh_module = CppExtension(
     'im2mesh.dmc.ops.cpp_modules.pred2mesh',
     sources=[
         'im2mesh/dmc/ops/cpp_modules/pred_to_mesh_.cpp',
-    ]   
+    ],
+    include_dirs=[numpy_include_dir]
 )
 
 dmc_cuda_module = CUDAExtension(
@@ -88,7 +94,8 @@ dmc_cuda_module = CUDAExtension(
         'im2mesh/dmc/ops/src/occupancy_to_topology_kernel.cu',
         'im2mesh/dmc/ops/src/occupancy_connectivity_kernel.cu',
         'im2mesh/dmc/ops/src/point_triangle_distance_kernel.cu',
-    ]
+    ],
+    include_dirs=[numpy_include_dir]
 )
 
 # Gather all extension modules
