@@ -2,13 +2,12 @@ name: mesh_funcspace
 channels:
   - conda-forge
   - pytorch
-  - intel
   - defaults
 dependencies:
   - cython
   - imageio
-  - numpy
-  - numpy-base
+  - numpy=1.15.4
+  - numpy-base=1.15.4
   - matplotlib
   - matplotlib-base
   - pandas
@@ -16,9 +15,9 @@ dependencies:
   - pyembree
   - pytest
   - python=3.7
-  - pytorch::pytorch=1.6.0
+  - pytorch::pytorch=1.1.0
   - pytorch::torchvision
-  - cudatoolkit=
+  - cudatoolkit=9.0
   - tensorflow
   - tensorboard
   - pyyaml
