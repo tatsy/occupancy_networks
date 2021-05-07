@@ -26,7 +26,7 @@ out_file = os.path.join(out_dir, 'eval_full.pkl')
 out_file_class = os.path.join(out_dir, 'eval.csv')
 
 # Dataset
-dataset = config.get_dataset('test', cfg, return_idx=True)
+dataset = config.get_dataset('test', cfg, return_idx=False)
 model = config.get_model(cfg, device=device, dataset=dataset)
 
 checkpoint_io = CheckpointIO(out_dir, model=model)

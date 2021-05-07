@@ -178,10 +178,10 @@ def get_dataset(mode, cfg, return_idx=False, return_category=False):
             fields['inputs'] = inputs_field
 
         if return_idx:
-            raise NotImplemetedError('Shrec dataset cannot return index!')
+            raise NotImplementedError('Shrec dataset cannot return index!')
 
         if return_category:
-            raise NotImplemetedError('Shrec dataset cannot return category!')
+            raise NotImplementedError('Shrec dataset cannot return category!')
 
         dataset = data.ShrecDataset(
             dataset_folder, fields,

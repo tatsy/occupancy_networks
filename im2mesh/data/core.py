@@ -185,7 +185,7 @@ class ShrecDataset(data.Dataset):
         elif split == 'val':
             list_file = 'validation_points_geometric.txt'
         elif split == 'test':
-            list_file = 'testing_points_geometric.txt'
+            list_file = 'test.lst'
         else:
             raise ValueError('Invalid split: %s' % (split))
 
