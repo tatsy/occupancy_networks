@@ -175,6 +175,8 @@ class ShrecDataset(data.Dataset):
         # Attributes
         self.dataset_folder = dataset_folder
         self.fields = fields
+        self.no_except = no_except
+        self.transform = transform
 
         # Get all models
         list_file = ''
