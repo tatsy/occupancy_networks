@@ -169,6 +169,20 @@ def get_dataset(mode, cfg, return_idx=False, return_category=False):
             return_idx=return_idx,
         )
     elif dataset_type == 'shrec':
+        # Dataset fields
+        # Method specific fields (usually correspond to output)
+        fields = method_dict[method].config.get_data_fields(mode, cfg)
+        # Input fields
+        inputs_field = get_inputs_field(mode, cfg)
+        if inputs_field is not None:
+            fields['inputs'] = inputs_field
+
+        if return_idx:
+            raise NotImplemetedError('Shrec dataset cannot return index!')
+
+        if return_category:
+            raise NotImplemetedError('Shrec dataset cannot return category!')
+
         dataset = data.ShrecDataset(
             dataset_folder, fields,
             split=split
