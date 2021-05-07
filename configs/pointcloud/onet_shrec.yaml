@@ -1,6 +1,6 @@
 method: onet
 data:
-  dataset: Shrec
+  dataset: shrec
   input_type: pointcloud
   path: /data/shrec
   pointcloud_n: 300

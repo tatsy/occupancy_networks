@@ -168,6 +168,11 @@ def get_dataset(mode, cfg, return_idx=False, return_category=False):
             dataset_folder, img_size=cfg['data']['img_size'],
             return_idx=return_idx,
         )
+    elif dataset_type == 'shrec':
+        dataset = data.ShrecDataset(
+            dataset_folder, fields,
+            split=split
+        )
     else:
         raise ValueError('Invalid dataset "%s"' % cfg['data']['dataset'])
  

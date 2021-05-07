@@ -156,6 +156,105 @@ class Shapes3dDataset(data.Dataset):
         return True
 
 
+class ShrecDataset(data.Dataset):
+    ''' Shrec dataset class.
+    '''
+
+    def __init__(self, dataset_folder, fields, split=None,
+                 no_except=True, transform=None):
+        ''' Initialization of the the 3D shape dataset.
+
+        Args:
+            dataset_folder (str): dataset folder
+            fields (dict): dictionary of fields
+            split (str): which split is used
+            categories (list): list of categories to use
+            no_except (bool): no exception
+            transform (callable): transformation applied to data points
+        '''
+        # Attributes
+        self.dataset_folder = dataset_folder
+        self.fields = fields
+
+        # Get all models
+        list_file = ''
+        if split == 'train':
+            list_file = 'training_points_geometric.txt'
+        elif split == 'val':
+            list_file = 'validation_points_geometric.txt'
+        elif split == 'test':
+            list_file = 'testing_points_geometric.txt'
+        else:
+            raise ValueError('Invalid split: %s' % (split))
+
+        list_file = os.path.join(self.dataset_folder, list_file)
+        self.models = []
+        with open(list_file, 'r') as f:
+            self.models = [name.strip() for name in f.read().split('\n')]
+            self.models = [name for name in self.models if len(name) != 0]
+
+    def __len__(self):
+        ''' Returns the length of the dataset.
+        '''
+        return len(self.models)
+
+    def __getitem__(self, idx):
+        ''' Returns an item of the dataset.
+
+        Args:
+            idx (int): ID of data point
+        '''
+        model = self.models[idx]
+        model_path = os.path.join(self.dataset_folder, model)
+        data = {}
+
+        for field_name, field in self.fields.items():
+            try:
+                field_data = field.load(model_path, idx, c_idx)
+            except Exception:
+                if self.no_except:
+                    logger.warn(
+                        'Error occured when loading field %s of model %s'
+                        % (field_name, model)
+                    )
+                    return None
+                else:
+                    raise
+
+            if isinstance(field_data, dict):
+                for k, v in field_data.items():
+                    if k is None:
+                        data[field_name] = v
+                    else:
+                        data['%s.%s' % (field_name, k)] = v
+            else:
+                data[field_name] = field_data
+
+        if self.transform is not None:
+            data = self.transform(data)
+
+        return data
+
+    def get_model_dict(self, idx):
+        return self.models[idx]
+
+    def test_model_complete(self, category, model):
+        ''' Tests if model is complete.
+
+        Args:
+            model (str): modelname
+        '''
+        model_path = os.path.join(self.dataset_folder, category, model)
+        files = os.listdir(model_path)
+        for field_name, field in self.fields.items():
+            if not field.check_complete(files):
+                logger.warn('Field "%s" is incomplete: %s'
+                            % (field_name, model_path))
+                return False
+
+        return True
+
+
 def collate_remove_none(batch):
     ''' Collater that puts each data field into a tensor with outer dimension
         batch size.
